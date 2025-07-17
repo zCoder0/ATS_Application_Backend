@@ -1,0 +1,9 @@
+spacy
+pypdf
+pdfminer.six
+nltk
+scikit-learn
+fastapi
+uvicorn
+python-multipart
+#python -m spacy download en_core_web_sm
