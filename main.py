@@ -3,7 +3,7 @@ import uvicorn
 import tempfile
 from fastapi.middleware.cors import CORSMiddleware
 
-from main import  TestScore
+from manage import  TestScore
 
 app = FastAPI()
 
