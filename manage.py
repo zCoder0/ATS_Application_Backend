@@ -1,6 +1,4 @@
 from fastapi import FastAPI, File, UploadFile,Form
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 import uvicorn
 import tempfile
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,8 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from main import  TestScore
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory='static'), name='static')
-
 
 
 app.add_middleware(
@@ -19,12 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-
-@app.get("/")
-def read_index():
-    return FileResponse("static/index.html")
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...) ,jd :str = Form(...)):
