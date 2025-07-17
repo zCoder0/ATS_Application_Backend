@@ -3,11 +3,24 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 import tempfile
+from fastapi.middleware.cors import CORSMiddleware
 
 from main import  TestScore
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory='static'), name='static')
+
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can restrict this to ["http://127.0.0.1:5500"] for security
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 @app.get("/")
 def read_index():
@@ -29,5 +42,3 @@ async def upload_file(file: UploadFile = File(...) ,jd :str = Form(...)):
     scores  = test_score.FindScore(tmp_path,jd)
     print(scores)
     return{"scores":scores}
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=1000)
