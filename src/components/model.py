@@ -4,10 +4,6 @@ from src.components.preprocess  import ExtractData
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-import sys
-import nltk
-import string
-
 
 class ATS_Score:
     
@@ -15,7 +11,7 @@ class ATS_Score:
         self.nlp = spacy.load('en_core_web_sm')
         self.skillset = [skill.lower() for skill in skillset ]
         
-    def extract_skills(self,text):
+    def match_skills(self,text):
         
        tokens = [token.text.lower() for token in self.nlp(text) if token.is_alpha]
        matched_skills = [skill for skill in self.skillset if skill in tokens]
@@ -29,10 +25,12 @@ class ATS_Score:
         
    
     def calculate_ats_score(self,resume_text ,jd_text):
-        matched_skills = self.extract_skills(resume_text)
+        
+        matched_skills = self.match_skills(resume_text)
+        
         skill_socre =( len(matched_skills) / len(self.skillset))* 100 
         similarity_score  = self.calculate_similarity(resume_text ,jd_text)
-        final_score = round(0.6* skill_socre + 0.45*similarity_score,2)        
+        final_score = round(0.55* skill_socre + 0.45*similarity_score,2)        
     
         return {
             "final_score":final_score,

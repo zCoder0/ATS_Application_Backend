@@ -12,20 +12,20 @@ class TestScore:
     def FindScore(self , resume_path,jd):
 
         try:
-    
             
             extract_resume = ExtractData(resume_path)
             preprocess_data = extract_resume.preprocess_text()
             preprocess_data = " ".join(preprocess_data)
             
-            print(jd)
+            experience_resume = extract_resume.extract_experience(preprocess_data)
+            
             jd_data =extract_resume.preprocess_text(jd)
             job_description = " ".join(jd_data)
             
+            skill_set =  extract_resume.extract_skills_from_jd(job_description )
+            experience = extract_resume.extract_experience(job_description)
             
             
-            
-            skill_set = ["Python","SQl","Machine Learning","NLP","Numpy","Pandas","Matplotlib","Django","AWS","Azure","Spacy","Java"]
             
             ats_score =  ATS_Score(skill_set)
             final_score =  ats_score.calculate_ats_score(preprocess_data , job_description)
