@@ -5,6 +5,9 @@ import uvicorn
 import tempfile
 
 from manage import  TestScore
+
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # You can restrict this to ["http://127.0.0.1:5500"] for security
@@ -12,7 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app = FastAPI()
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...) ,jd :str = Form(...)):
