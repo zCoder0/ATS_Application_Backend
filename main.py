@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 import tempfile
 
+from fastapi.middleware.cors import CORSMiddleware
 from manage import  TestScore
 
 app = FastAPI()
